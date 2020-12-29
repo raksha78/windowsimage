@@ -28,18 +28,7 @@ pipelines:
           dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
           dockerImageTag: latest
           integrations:
-            - name: art_v
-          inputResources:
-            - name: dbp_repo_02
-      - name: build_Docker_Image_1
-        type: DockerBuild
-        configuration:
-          dockerFileLocation: .
-          dockerFileName: Dockerfile
-          dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
-          dockerImageTag: latest
-          integrations:
-            - name: art_v
+            - name: art_vv
           inputResources:
             - name: dbp_repo_02
             
