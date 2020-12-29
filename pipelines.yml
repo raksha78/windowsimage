@@ -25,7 +25,7 @@ pipelines:
         configuration:
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker
           dockerImageTag: latest
           integrations:
             - name: art_v
