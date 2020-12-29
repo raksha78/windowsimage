@@ -6,13 +6,19 @@ resources:
       path: raksha78/windowsimage  
       branches:
         include: master
+  - name: NS_P_DockerPush_0002
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art_v
+      buildName: NS_P_DockerPush_0002
+      buildNumber: 1
 
 pipelines:
-  - name: NS_P_DockerPush_0001
+  - name: NS_P_DockerPush_0002
     configuration:
       nodePool: win_2019
     steps:
-      - name: NS_P_DockerPush_0001_01
+      - name: NS_P_DockerPush_0002_01
         type: DockerBuild
         configuration:
           dockerFileLocation: .
@@ -24,15 +30,15 @@ pipelines:
           inputResources:
             - name: dbp_repo
             
-      - name: NS_P_DockerPush_0001_02
+      - name: NS_P_DockerPush_0002_02
         type: DockerPush
         configuration:
-          autoPublishBuildInfo: false
-          forceXrayScan: false
+          autoPublishBuildInfo: true
+          forceXrayScan: true
           targetRepository: rak_docker 
           integrations:
             - name: art_v 
           inputSteps:
             - name: NS_P_DockerPush_0001_01  
-
-            
+          outputResources:
+            - name: NS_P_DockerPush_0002
