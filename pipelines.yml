@@ -36,7 +36,7 @@ pipelines:
         type: DockerPush
         configuration:
           autoPublishBuildInfo: false #IMPORTANGT******************* : if this is true then only we need outputResource in DockerPush and no need of publishBuildInfo step
-          targetRepository: "" #required
+          targetRepository: rak_docker #required
           integrations:
             - name: art_v 
           inputSteps:
