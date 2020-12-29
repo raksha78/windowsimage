@@ -1,26 +1,18 @@
 resources:
-  - name: dbp_repo_02
+  - name: dbp_repo
     type: GitRepo
     configuration:
-      gitProvider: raksha78_github                      # <-- replace with your integration
-      path: raksha78/windowsimage   # <-- replace with your repository name
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage   
       branches:
         include: master
 
-  - name: dbp_build_info_02
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: art_v
-      buildName: dbp_build_rak_2
-      buildNumber: 2
-            
-
 pipelines:
-  - name: rak_test_pipe
+  - name: NS_P_DockerBuild_0001
     configuration:
       nodePool: win_2019
     steps:
-      - name: build_Docker_Image
+      - name: NS_P_DockerBuild_0001
         type: DockerBuild
         configuration:
           dockerFileLocation: .
@@ -30,14 +22,5 @@ pipelines:
           integrations:
             - name: art_v
           inputResources:
-            - name: dbp_repo_02
+            - name: dbp_repo
             
-      - name: Push_Docker_Image
-        type: DockerPush
-        configuration:
-          autoPublishBuildInfo: false #IMPORTANGT******************* : if this is true then only we need outputResource in DockerPush and no need of publishBuildInfo step
-          targetRepository: rak_docker #required
-          integrations:
-            - name: art_v 
-          inputSteps:
-            - name: build_Docker_Image  
