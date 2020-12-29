@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: raksha78_github                      # <-- replace with your integration
-      path: raksha78/jfrog-pipelines-docker-sample    # <-- replace with your repository name
+      path: raksha78/windowsimage   # <-- replace with your repository name
       branches:
         include: master
 
