@@ -1,76 +1,43 @@
 resources:
-      
-  - name: vijay_gitRepo
+  - name: dbp_repo_02
     type: GitRepo
     configuration:
-      path: vijayreddy1991/windowsimage
-      gitProvider: vijay
-      branches: 
+      gitProvider: raksha78_github                      # <-- replace with your integration
+      path: raksha78/jfrog-pipelines-docker-sample    # <-- replace with your repository name
+      branches:
         include: master
-        
-  - name: docker_build_promote_vijay
+
+  - name: dbp_build_info_02
     type: BuildInfo
     configuration:
       sourceArtifactory: art_v
-      buildNumber: 1
-      buildName: dockertest
+      buildName: dbp_build_rak_2
+      buildNumber: 2
             
 
 pipelines:
-  - name: vijay_test_pipe
+  - name: rak_test_pipe
     configuration:
       nodePool: win_2019
-#       environmentVariables:
-#         readOnly:
-#           JFROG_CLI_BUILD_NAME: "PIPE-f2387"
-#           JFROG_CLI_BUILD_NUMBER: 2387
     steps:
-
       - name: build_Docker_Image
         type: DockerBuild
         configuration:
-#           environmentVariables: # optional
-#             JFROG_CLI_BUILD_NAME: "PIPE-f2387"
-#             JFROG_CLI_BUILD_NUMBER: 2387
           dockerFileLocation: .
           dockerFileName: Dockerfile
-#           dockerImageName: pipe-master.jfrog.info:8082/docker-local/node 
-#           dockerImageName: pipelines.westus.cloudapp.azure.com:8082/docker-local/node
-          dockerImageName: u18.jfrog-pipelines.com/docker-local/node
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
           dockerImageTag: latest
           integrations:
             - name: art_v
           inputResources:
-            - name: vijay_gitRepo 
+            - name: dbp_repo_02
             
       - name: Push_Docker_Image
         type: DockerPush
         configuration:
-#           environmentVariables: # optional
-#             JFROG_CLI_BUILD_NAME: "PIPE-f2387"
-#             JFROG_CLI_BUILD_NUMBER: 2387
           autoPublishBuildInfo: false #IMPORTANGT******************* : if this is true then only we need outputResource in DockerPush and no need of publishBuildInfo step
-          targetRepository: docker-local #required
+          targetRepository: rak_docker #required
           integrations:
             - name: art_v 
           inputSteps:
-            - name: build_Docker_Image    
-#       - name: dockerPublish
-#         type: PublishBuildInfo
-#         configuration:
-#           inputSteps:
-#             - name: Push_Docker_Image
-#           outputResources:
-#             - name: docker_Build_vijay
-#       - name: dockerPromote
-#         type: PromoteBuild
-#         configuration:
-#           targetRepository: test-generic-local
-#           inputSteps:
-#             - name: dockerPublish
-#           integrations:
-#             - name: art_v
-#           inputResources:
-#             - name: docker_Build_vijay
-#           outputResources:
-#             - name: docker_build_promote_vijay            
+            - name: dbp_build_info_02   
