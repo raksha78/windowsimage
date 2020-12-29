@@ -40,4 +40,4 @@ pipelines:
           integrations:
             - name: art_v 
           inputSteps:
-            - name: dbp_build_info_02   
+            - name: build_Docker_Image  
