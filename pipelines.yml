@@ -23,12 +23,12 @@ pipelines:
       - name: build_Docker_Image
         type: DockerBuild
         configuration:
-          dockerFileLocation: .
+          dockerFileLocation: ......
           dockerFileName: Dockerfile
           dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
           dockerImageTag: latest
           integrations:
-            - name: art_vv
+            - name: art_v
           inputResources:
             - name: dbp_repo_02
             
