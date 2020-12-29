@@ -39,6 +39,6 @@ pipelines:
           integrations:
             - name: art_v 
           inputSteps:
-            - name: NS_P_DockerPush_0001_01  
+            - name: NS_P_DockerPush_0002_01  
           outputResources:
             - name: NS_P_DockerPush_0002
