@@ -23,8 +23,8 @@ pipelines:
       - name: build_Docker_Image
         type: DockerBuild
         configuration:
-          dockerFileLocation: ......
-          dockerFileName: Dockerfile
+          dockerFileLocation: .
+          dockerFileName: Dockerfile1
           dockerImageName: dev.jfrog-pipelines.com/rak_docker/win
           dockerImageTag: latest
           integrations:
