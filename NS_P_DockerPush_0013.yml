@@ -1,0 +1,45 @@
+resources:
+  - name: NS_P_DockerPush_0013
+    type: GitRepo
+    configuration:
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage  
+      branches:
+        include: master
+  - name: NS_P_DockerPush_BuildInfo_0013
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art_v
+      buildName: NS_P_DockerPush_BuildInfo_0013
+      buildNumber: 1
+
+pipelines:
+  - name: NS_P_DockerPush_0013
+    configuration:
+      nodePool: win_2019
+    steps:
+      - name: NS_P_DockerPush_0013_01
+        type: DockerBuild
+        configuration:
+          affinityGroup: NS_P_DockerPush_0013
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+          inputResources:
+            - name: NS_P_DockerPush_0013
+            
+      - name: NS_P_DockerPush_0013_02
+        type: DockerPush
+        configuration:
+          affinityGroup: NS_P_DockerPush_0013
+          autoPublishBuildInfo: true
+          targetRepository: rak_docker 
+          integrations:
+            - name: art_v 
+          inputSteps:
+            - name: NS_P_DockerPush_0013_01  
+          outputResources:
+            - name: NS_P_DockerPush_BuildInfo_0013

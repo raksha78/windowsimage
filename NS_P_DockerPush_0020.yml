@@ -1,0 +1,37 @@
+resources:
+  - name: NS_P_DockerPush_0020
+    type: GitRepo
+    configuration:
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage  
+      branches:
+        include: master
+
+pipelines:
+  - name: NS_P_DockerPush_0020
+    configuration:
+      nodePool: win_2019
+    steps:
+      - name: NS_P_DockerPush_0020_01
+        type: DockerBuild
+        configuration:
+          affinityGroup: NS_P_DockerPush_0020
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+          inputResources:
+            - name: NS_P_DockerPush_0020
+            
+      - name: NS_P_DockerPush_0020_02
+        type: DockerPush
+        configuration:
+          affinityGroup: NS_P_DockerPush_0020
+          targetRepository: docker 
+          integrations:
+            - name: art_v
+          inputSteps:
+            - name: NS_P_DockerPush_0020_01
+          

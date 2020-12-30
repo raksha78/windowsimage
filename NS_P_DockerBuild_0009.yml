@@ -1,0 +1,26 @@
+resources:
+  - name: NS_P_DockerBuild_0009
+    type: GitRepo
+    configuration:
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage   
+      branches:
+        include: master
+
+pipelines:
+  - name: NS_P_DockerBuild_0009
+    configuration:
+      nodePool: win_2019
+    steps:
+      - name: NS_P_DockerBuild_0009
+        type: DockerBuild
+        configuration:
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+          inputResources:
+            - name: NS_P_DockerBuild_0009
+            
+     
