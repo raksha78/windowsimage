@@ -6,22 +6,15 @@ resources:
       path: raksha78/windowsimage  
       branches:
         include: master
-  - name: NS_P_DockerPush_0002
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: art_v
-      buildName: NS_P_DockerPush_0002
-      buildNumber: 1
 
 pipelines:
-  - name: NS_P_DockerPush_0002
+  - name: NS_P_DockerPush_0023
     configuration:
       nodePool: win_2019
     steps:
-      - name: NS_P_DockerPush_0002_01
+      - name: NS_P_DockerPush_0023_01
         type: DockerBuild
         configuration:
-          affinityGroup: Together
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
@@ -31,16 +24,13 @@ pipelines:
           inputResources:
             - name: dbp_repo
             
-      - name: NS_P_DockerPush_0002_02
+      - name: NS_P_DockerPush_0023_02
         type: DockerPush
         configuration:
-          autoPublishBuildInfo: true
-#           forceXrayScan: true
           targetRepository: rak_docker 
-#           affinityGroup: Together
+          affinityGroup: Together
           integrations:
             - name: art_v 
           inputSteps:
-            - name: NS_P_DockerPush_0002_01  
-          outputResources:
-            - name: NS_P_DockerPush_0002
+            - name: NS_P_DockerPush_0023_01  
+        
