@@ -1,0 +1,40 @@
+resources:
+  - name: dbp_repo
+    type: GitRepo
+    configuration:
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage  
+      branches:
+        include: master
+
+pipelines:
+  - name: NS_P_DockerPush_0016
+    configuration:
+      nodePool: win_2019
+    steps:
+      - name: NS_P_DockerPush_0016_01
+        type: DockerBuild
+        configuration:
+          affinityGroup: NS_P_DockerPush_0016
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+          inputResources:
+            - name: dbp_repo
+            
+      - name: NS_P_DockerPush_0016_02
+        type: DockerPush
+        execution:
+          onFailure:
+            - echo "uh oh, something went wrong"
+        configuration:
+          affinityGroup: NS_P_DockerPush_0016
+          targetRepository: rak_docker 
+          integrations:
+            - name: art_v 
+          inputSteps:
+            - name: NS_P_DockerPush_0016_01  
+          

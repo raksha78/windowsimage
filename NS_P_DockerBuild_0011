@@ -1,0 +1,27 @@
+resources:
+  - name: dbp_repo
+    type: GitRepo
+    configuration:
+      gitProvider: raksha78_github                     
+      path: raksha78/windowsimage   
+      branches:
+        include: master
+
+pipelines:
+  - name: NS_P_DockerBuild_0011
+    configuration:
+      nodePool: win_2019
+    steps:
+      - name: NS_P_DockerBuild_0011
+        type: DockerBuild
+        configuration:
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+         
+            
+            
+     
