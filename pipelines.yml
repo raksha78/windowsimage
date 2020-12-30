@@ -21,10 +21,11 @@ pipelines:
       - name: NS_P_DockerPush_0002_01
         type: DockerBuild
         configuration:
+          affinityGroup: Together
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: dev.jfrog-pipelines.com/rak_docker/img
-          dockerImageTag: latest
+          dockerImageTag: affinity
           integrations:
             - name: art_v
           inputResources:
