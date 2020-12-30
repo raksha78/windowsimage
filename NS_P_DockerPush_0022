@@ -29,8 +29,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: NS_P_DockerPush_0022
-          targetRepository: rak_docker 
-          affinityGroup: together
+          targetRepository: rak_docker
           integrations:
             - name: art_v 
           inputSteps:
