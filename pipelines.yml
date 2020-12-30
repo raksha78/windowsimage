@@ -32,11 +32,11 @@ pipelines:
             
       - name: NS_P_DockerPush_0002_02
         type: DockerPush
-        affinityGroup: Together
         configuration:
           autoPublishBuildInfo: true
 #           forceXrayScan: true
           targetRepository: rak_docker 
+          affinityGroup: Together
           integrations:
             - name: art_v 
           inputSteps:
