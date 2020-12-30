@@ -34,7 +34,7 @@ pipelines:
         type: DockerPush
         configuration:
           autoPublishBuildInfo: true
-          forceXrayScan: true
+#           forceXrayScan: true
           targetRepository: rak_docker 
           integrations:
             - name: art_v 
